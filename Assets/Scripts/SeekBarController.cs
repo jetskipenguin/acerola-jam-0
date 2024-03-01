@@ -8,7 +8,6 @@ public class SeekBarController : MonoBehaviour
     [SerializeField] AudioSource audioSource;
 
     private int screenWidth;
-    private int screenHeight;
     private int transformWidth;
     private int numTransforms;
     private float clipLength;
@@ -18,7 +17,6 @@ public class SeekBarController : MonoBehaviour
     void Start()
     {
         screenWidth = Screen.width;
-        screenHeight = Screen.height;
         transformWidth = (int) Math.Floor(transform.GetComponent<RectTransform>().rect.width);
         clipLength = audioSource.clip.length;
         
@@ -28,17 +26,9 @@ public class SeekBarController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // move seek bar across the screen
         clipTime = audioSource.time;
-        Debug.Log(clipTime / clipLength);
         int currTransformNum = (int) Math.Floor(numTransforms * (clipTime / clipLength));
-        Debug.Log(currTransformNum);
         transform.position = new Vector3(currTransformNum * transformWidth, transform.position.y, transform.position.z);
-    
     }
-
-    // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
 }
