@@ -10,11 +10,14 @@ public class DrawWaveform : MonoBehaviour
     //public Color bgColor = Color.green;
     public float sat = .5f;
  
-    [SerializeField] Image img;
-    [SerializeField] AudioClip clip;
+    [SerializeField] private Image img;
+    [SerializeField] private AudioSource audioSource;
+
+    private AudioClip clip;
  
     void Start()
     {
+        clip = audioSource.clip;
         Texture2D texture = PaintWaveformSpectrum(clip, sat, width, height, waveformColor);
         img.overrideSprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
