@@ -275,6 +275,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1595511308 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 471176692201139976, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+  m_PrefabInstance: {fileID: 1796018283991055875}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1881267107 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1796018285331178912, guid: 695c845932351934cbf2d76b55537e13, type: 3}
@@ -388,6 +399,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2050346123}
     m_Modifications:
+    - target: {fileID: 155472908991931826, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 155472908991931826, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 155472908991931826, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1796018283991055877}
+    - target: {fileID: 155472908991931826, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 155472908991931826, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: prevFreq
+      objectReference: {fileID: 0}
+    - target: {fileID: 155472908991931826, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FrequencyDisplayController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 155472908991931826, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1796018285331178912, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -476,5 +515,52 @@ PrefabInstance:
       propertyPath: m_Name
       value: Radio Display
       objectReference: {fileID: 0}
+    - target: {fileID: 6744335514239629519, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744335514239629519, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744335514239629519, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1796018283991055877}
+    - target: {fileID: 6744335514239629519, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744335514239629519, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: nextFreq
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744335514239629519, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FrequencyDisplayController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744335514239629519, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+--- !u!1 &1796018283991055876 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5251370257403420417, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+  m_PrefabInstance: {fileID: 1796018283991055875}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1796018283991055877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796018283991055876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34465dcab4423594fbfe7bc8f354ac45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abberationManager: {fileID: 11400000, guid: c2657c2ec1bdca447859c8ab1f5b2fd8, type: 2}
+  frequencyText: {fileID: 1595511308}
