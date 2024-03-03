@@ -21,28 +21,42 @@ public class AbberationManagerSO : ScriptableObject
         }
     }
 
-    public void incrementMissedAbberations()
+    public enum AbberationType
+    {
+        RADIO_STATIC,
+        ABBERANT_FREQ,
+        STUCK_PIXEL,
+        STRANGE_WAVEFORM,
+        EVIL_VOICE
+    }
+
+    public void IncrementMissedAbberations()
     {
         missedAbberations++;
     }
 
-    public void resetMissedAbberations()
+    public void ResetMissedAbberations()
     {
         missedAbberations = 0;
     }
 
-    public string getTypicalFreq(int index)
+    public string GetTypicalFreq(int index)
     {
         return typicalFrequencies[index];
     }
 
-    public AudioClip getTypicalAudioClip(int index)
+    public AudioClip GetTypicalAudioClip(int index)
     {
         return typicalAudioClips[index];
     }
 
-    public int getAmountOfAvailableClipsAndFreqs()
+    public int GetAmountOfAvailableClipsAndFreqs()
     {
         return Math.Min(typicalFrequencies.Length, typicalAudioClips.Length);
+    }
+
+    public AbberationType GetAbberationType()
+    {
+        return (AbberationType) UnityEngine.Random.Range(0, Enum.GetValues(typeof(AbberationType)).Length);
     }
 }
