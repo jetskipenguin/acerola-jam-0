@@ -6,7 +6,9 @@ public class RadioManager : MonoBehaviour
 {
     [SerializeField] private AbberationManagerSO abberationManager;
     [SerializeField] private FrequencyDisplayController frequencyDisplayController;
-    private string[] typicalFreqs;
+    [SerializeField] private DrawWaveform drawWaveform;
+    [SerializeField] private AudioSource audioSource;
+
     private int currFreqIndex = 0;
 
     
@@ -15,24 +17,31 @@ public class RadioManager : MonoBehaviour
     {
         abberationManager.resetMissedAbberations();
 
-        typicalFreqs = abberationManager.getTypicalFrequencies();
+        audioSource.clip = abberationManager.getTypicalAudioClip(currFreqIndex);
+        drawWaveform.DisplayWaveform();
     }
+
 
     public void NextFreq()
     {
-        if (currFreqIndex < typicalFreqs.Length - 1)
+        if (currFreqIndex < abberationManager.getAmountOfAvailableClipsAndFreqs() - 1)
         {
             currFreqIndex++;
-            frequencyDisplayController.DisplayFrequency(typicalFreqs[currFreqIndex]);
+            audioSource.clip = abberationManager.getTypicalAudioClip(currFreqIndex);
+            frequencyDisplayController.DisplayFrequency(abberationManager.getTypicalFreq(currFreqIndex));
+            drawWaveform.DisplayWaveform();
         }
     }
+
 
     public void PrevFreq()
     {
         if (currFreqIndex > 0)
         {
             currFreqIndex--;
-            frequencyDisplayController.DisplayFrequency(typicalFreqs[currFreqIndex]);
+            audioSource.clip = abberationManager.getTypicalAudioClip(currFreqIndex);
+            frequencyDisplayController.DisplayFrequency(abberationManager.getTypicalFreq(currFreqIndex));
+            drawWaveform.DisplayWaveform();
         }
     }
 }

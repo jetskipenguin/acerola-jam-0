@@ -14,10 +14,12 @@ public class DrawWaveform : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
 
     private AudioClip clip;
- 
-    void Start()
+    
+    // AudioSource must be changed before calling this
+    public void DisplayWaveform()
     {
         clip = audioSource.clip;
+        // TODO: cache this texture
         Texture2D texture = PaintWaveformSpectrum(clip, sat, width, height, waveformColor);
         img.overrideSprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }

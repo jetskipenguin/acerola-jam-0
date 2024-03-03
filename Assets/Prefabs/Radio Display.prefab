@@ -511,6 +511,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abberationManager: {fileID: 11400000, guid: c2657c2ec1bdca447859c8ab1f5b2fd8, type: 2}
   frequencyDisplayController: {fileID: 1796018283991055877}
+  drawWaveform: {fileID: 1796018284524904395}
+  audioSource: {fileID: 1796018284369929690}
 --- !u!1 &1796018285387728207
 GameObject:
   m_ObjectHideFlags: 0
