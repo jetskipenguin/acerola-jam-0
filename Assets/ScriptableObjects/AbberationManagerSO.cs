@@ -1,33 +1,40 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
+
+[Serializable]
+public class Station
+{
+    public string freq;
+    public AudioClip clip;
+
+    public static implicit operator Tuple<string, AudioClip>(Station station)
+    {
+        return new Tuple<string, AudioClip>(station.freq, station.clip);
+    }
+}
 
 [CreateAssetMenu(fileName = "AbberationManager", menuName = "ScriptableObjects/AbberationManager", order = 1)]
 public class AbberationManagerSO : ScriptableObject
 {
-    [SerializeField] private AudioClip[] typicalAudioClips;
-    [SerializeField] private AudioClip[] abberantAudioClips;
-
-    [SerializeField] private string[] typicalFrequencies = {"101.7", "102.3", "103.1", "104.5", "105.3", "106.1", "107.5", "108.3"};
-    private readonly string[] abberantFrequencies = {"66.6", "666.0", "----"};
+    [SerializeField] private Station[] radioStations;
+    [SerializeField] private AudioClip[] abberantSounds;
+    [SerializeField] private string[] abberantFreqs;
 
     private int missedAbberations = 0;
-
-    public void Start()
-    {
-        if(typicalAudioClips.Length != typicalFrequencies.Length)
-        {
-            Debug.LogError("Typical Audio Clips and Frequencies do not match in length");
-        }
-    }
+    private int currStationIndex = 0;
 
     public enum AbberationType
     {
-        RADIO_STATIC,
         ABBERANT_FREQ,
+        ABBERANT_SOUND,
         STUCK_PIXEL,
         STRANGE_WAVEFORM,
-        EVIL_VOICE
+    }
+
+    public void InitializeManager()
+    {
+        missedAbberations = 0;
+        currStationIndex = 0;
     }
 
     public void IncrementMissedAbberations()
@@ -35,28 +42,80 @@ public class AbberationManagerSO : ScriptableObject
         missedAbberations++;
     }
 
-    public void ResetMissedAbberations()
+    /* Functions related to switching stations */
+
+    public Tuple<string, AudioClip> GetNextStation()
     {
-        missedAbberations = 0;
+        Debug.Log("CurrStationIndex: " + currStationIndex);
+        if (currStationIndex < radioStations.Length - 1)
+        {
+            currStationIndex++;
+        }
+        else
+        {
+            currStationIndex = 0;
+        }
+
+        return radioStations[currStationIndex];
     }
 
-    public string GetTypicalFreq(int index)
+
+    public Tuple<string, AudioClip> GetPrevStation()
     {
-        return typicalFrequencies[index];
+        if (currStationIndex > 0)
+        {
+            currStationIndex--;
+        }
+        else
+        {
+            currStationIndex = radioStations.Length - 1;
+        }
+
+        return radioStations[currStationIndex];
     }
 
-    public AudioClip GetTypicalAudioClip(int index)
-    {
-        return typicalAudioClips[index];
-    }
 
-    public int GetAmountOfAvailableClipsAndFreqs()
-    {
-        return Math.Min(typicalFrequencies.Length, typicalAudioClips.Length);
-    }
+    /* Functions related to creating abberations */
 
     public AbberationType GetAbberationType()
     {
         return (AbberationType) UnityEngine.Random.Range(0, Enum.GetValues(typeof(AbberationType)).Length);
+    }
+
+    /* 
+    picks a random station and changes the freq to an abberant freq.
+    returns the original freq and index so it can be changed back.
+    */
+    public Tuple<int, string> AddAbberantFreqToRandomStation()
+    {
+        string abberantFreq = abberantFreqs[UnityEngine.Random.Range(0, abberantFreqs.Length)];
+
+        int stationIndex = UnityEngine.Random.Range(0, radioStations.Length);
+        SetStationFreq(stationIndex, abberantFreq);
+
+        return Tuple.Create(stationIndex, radioStations[stationIndex].freq);
+    }
+
+
+    /*
+    picks a random station and changes the audio to an abberant sound.
+    returns the original audio and index so it can be changed bacl.
+    */
+    public Tuple<int, AudioClip> AddAbberantAudioToRandomStation()
+    {
+        AudioClip abberantSound = abberantSounds[UnityEngine.Random.Range(0, abberantSounds.Length)];
+
+        int stationIndex = UnityEngine.Random.Range(0, radioStations.Length);
+        Station randomStation = radioStations[stationIndex];
+
+        randomStation.clip = abberantSound;
+
+        return Tuple.Create(currStationIndex, randomStation.clip);
+    }
+
+    
+    public void SetStationFreq(int index, string freq)
+    {
+        radioStations[index].freq = freq;
     }
 }

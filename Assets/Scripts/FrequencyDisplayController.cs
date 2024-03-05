@@ -10,4 +10,12 @@ public class FrequencyDisplayController : MonoBehaviour
     {
         frequencyText.text = frequency;
     }
+
+    public IEnumerator DisplayFrequencyForTime(string frequency, float time)
+    {
+        string originalFrequency = frequencyText.text;
+        frequencyText.text = frequency;
+        yield return new WaitForSeconds(time);
+        frequencyText.text = originalFrequency;
+    }
 }

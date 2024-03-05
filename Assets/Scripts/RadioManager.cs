@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class RadioManager : MonoBehaviour
@@ -8,51 +10,80 @@ public class RadioManager : MonoBehaviour
     [SerializeField] private FrequencyDisplayController frequencyDisplayController;
     [SerializeField] private DrawWaveform drawWaveform;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private PauseButton pauseButton;
 
-    private int currFreqIndex = 0;
     private int secondsBetweenAbberations = 3;
+    private int lengthOfAbberations = 5;
 
     
-    // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        abberationManager.ResetMissedAbberations();
+        // Reset values and start the first station
+        abberationManager.InitializeManager();
+        NextFreq();
 
-        audioSource.clip = abberationManager.GetTypicalAudioClip(currFreqIndex);
-        drawWaveform.DisplayWaveform();
+        // Start creating abberations
         StartCoroutine(CreateAbberation());
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            NextFreq();
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            PrevFreq();
+        }
     }
 
 
     public void NextFreq()
     {
-        if (currFreqIndex < abberationManager.GetAmountOfAvailableClipsAndFreqs() - 1)
-        {
-            currFreqIndex++;
-            audioSource.clip = abberationManager.GetTypicalAudioClip(currFreqIndex);
-            frequencyDisplayController.DisplayFrequency(abberationManager.GetTypicalFreq(currFreqIndex));
-            drawWaveform.DisplayWaveform();
-        }
+        SwitchStation(abberationManager.GetNextStation());
     }
-
 
     public void PrevFreq()
     {
-        if (currFreqIndex > 0)
-        {
-            currFreqIndex--;
-            audioSource.clip = abberationManager.GetTypicalAudioClip(currFreqIndex);
-            frequencyDisplayController.DisplayFrequency(abberationManager.GetTypicalFreq(currFreqIndex));
-            drawWaveform.DisplayWaveform();
-        }
+        SwitchStation(abberationManager.GetPrevStation());
     }
 
-    IEnumerator CreateAbberation()
+    private void SwitchStation(Tuple<string, AudioClip> station)
+    {
+        bool isOriginalStationPlaying = audioSource.isPlaying;
+
+        audioSource.clip = station.Item2;
+        frequencyDisplayController.DisplayFrequency(station.Item1);
+        drawWaveform.DisplayWaveform();
+
+        if (isOriginalStationPlaying)
+        {
+            audioSource.Play();
+        }
+        
+        pauseButton.UpdateIcon();
+    }
+
+    private IEnumerator CreateAbberation()
     {
         while (true) 
         {
             yield return new WaitForSeconds(secondsBetweenAbberations);
-            Debug.Log("Creating Abberation: " + abberationManager.GetAbberationType());
+            AbberationManagerSO.AbberationType abberationType = abberationManager.GetAbberationType();
+
+            UnityEngine.Debug.Log("Creating Abberation: " + abberationType);
+            // if(abberationType == AbberationManagerSO.AbberationType.ABBERANT_FREQ)
+            // {
+            //     StartCoroutine(CreateFreqAbberation());
+            // }
         }
+    }
+
+    private IEnumerator CreateFreqAbberation()
+    {
+        Tuple<int, string> originalFreq = abberationManager.AddAbberantFreqToRandomStation();
+        yield return new WaitForSeconds(lengthOfAbberations);
+        abberationManager.SetStationFreq(originalFreq.Item1, originalFreq.Item2);
     }
 }

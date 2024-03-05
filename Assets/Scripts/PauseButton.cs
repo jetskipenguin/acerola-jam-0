@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 public class PauseButton : MonoBehaviour
@@ -9,31 +6,33 @@ public class PauseButton : MonoBehaviour
     [SerializeField] private GameObject playIcon;
     [SerializeField] private GameObject stopIcon;
 
-    private bool isPaused = false;
-
     public void Start()
     {
-        playIcon.SetActive(false);
-        stopIcon.SetActive(true);
+        Pause();
     }
 
     public void Pause()
     {
-        if (isPaused)
+        if (!audioSource.isPlaying)
         {
             audioSource.Play();
-            isPaused = false;
+        }
+        else
+        {
+            audioSource.Pause();
+        }
+        UpdateIcon();
+    }
 
-            // Update Icon
+    public void UpdateIcon()
+    {
+        if(audioSource.isPlaying)
+        {
             playIcon.SetActive(false);
             stopIcon.SetActive(true);
         }
         else
         {
-            audioSource.Pause();
-            isPaused = true;
-
-            // Update Icon
             playIcon.SetActive(true);
             stopIcon.SetActive(false);
         }
