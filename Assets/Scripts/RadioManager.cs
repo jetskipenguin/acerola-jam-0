@@ -1,16 +1,17 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class RadioManager : MonoBehaviour
 {
-    [SerializeField] private AbberationManagerSO abberationManager;
+    [SerializeField] private AbberationManager abberationManager;
     [SerializeField] private FrequencyDisplayController frequencyDisplayController;
     [SerializeField] private DrawWaveform drawWaveform;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private PauseButton pauseButton;
+
+
+    [SerializeField] private string[] abberantFreqs;
 
     private int secondsBetweenAbberations = 3;
     private int lengthOfAbberations = 5;
@@ -21,9 +22,6 @@ public class RadioManager : MonoBehaviour
         // Reset values and start the first station
         abberationManager.InitializeManager();
         NextFreq();
-
-        // Start creating abberations
-        StartCoroutine(CreateAbberation());
     }
 
     public void Update()
@@ -63,27 +61,5 @@ public class RadioManager : MonoBehaviour
         }
         
         pauseButton.UpdateIcon();
-    }
-
-    private IEnumerator CreateAbberation()
-    {
-        while (true) 
-        {
-            yield return new WaitForSeconds(secondsBetweenAbberations);
-            AbberationManagerSO.AbberationType abberationType = abberationManager.GetAbberationType();
-
-            UnityEngine.Debug.Log("Creating Abberation: " + abberationType);
-            // if(abberationType == AbberationManagerSO.AbberationType.ABBERANT_FREQ)
-            // {
-            //     StartCoroutine(CreateFreqAbberation());
-            // }
-        }
-    }
-
-    private IEnumerator CreateFreqAbberation()
-    {
-        Tuple<int, string> originalFreq = abberationManager.AddAbberantFreqToRandomStation();
-        yield return new WaitForSeconds(lengthOfAbberations);
-        abberationManager.SetStationFreq(originalFreq.Item1, originalFreq.Item2);
     }
 }

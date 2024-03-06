@@ -428,6 +428,7 @@ GameObject:
   - component: {fileID: 1796018285331178918}
   - component: {fileID: 1796018285331178919}
   - component: {fileID: 4364774079894223671}
+  - component: {fileID: 1881267111}
   m_Layer: 5
   m_Name: Radio Display
   m_TagString: Untagged
@@ -509,10 +510,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 831f13d0104245c4db42bce8e21d7ab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abberationManager: {fileID: 11400000, guid: c2657c2ec1bdca447859c8ab1f5b2fd8, type: 2}
+  abberationManager: {fileID: 1881267111}
   frequencyDisplayController: {fileID: 1796018283991055877}
   drawWaveform: {fileID: 1796018284524904395}
   audioSource: {fileID: 1796018284369929690}
+  pauseButton: {fileID: 1796018284642714416}
+  abberantFreqs:
+  - 66.6
+--- !u!114 &1881267111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796018285331178913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4e20a69556a6848bf6574fe9518a9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radioStations:
+  - freq: 103.7
+    clip: {fileID: 8300000, guid: b8a1a352c8919d54fa7bbed58c939b1d, type: 3}
+  - freq: 93.2
+    clip: {fileID: 8300000, guid: 2b66ac60e5784d542a9ca679ddc68eff, type: 3}
+  abberantSounds: []
+  abberantFreqs:
+  - 66.6
 --- !u!1 &1796018285387728207
 GameObject:
   m_ObjectHideFlags: 0

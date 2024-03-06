@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [Serializable]
@@ -13,8 +14,7 @@ public class Station
     }
 }
 
-[CreateAssetMenu(fileName = "AbberationManager", menuName = "ScriptableObjects/AbberationManager", order = 1)]
-public class AbberationManagerSO : ScriptableObject
+public class AbberationManager : MonoBehaviour
 {
     [SerializeField] private Station[] radioStations;
     [SerializeField] private AudioClip[] abberantSounds;
@@ -26,9 +26,14 @@ public class AbberationManagerSO : ScriptableObject
     public enum AbberationType
     {
         ABBERANT_FREQ,
-        ABBERANT_SOUND,
-        STUCK_PIXEL,
-        STRANGE_WAVEFORM,
+        //ABBERANT_SOUND,
+        // STUCK_PIXEL,
+        // STRANGE_WAVEFORM,
+    }
+
+    public void Start()
+    {
+        StartCoroutine(CreateAbberations());
     }
 
     public void InitializeManager()
@@ -117,5 +122,28 @@ public class AbberationManagerSO : ScriptableObject
     public void SetStationFreq(int index, string freq)
     {
         radioStations[index].freq = freq;
+    }
+
+
+    private IEnumerator CreateAbberations()
+    {
+        while (true) 
+        {
+            yield return new WaitForSeconds(5);
+            AbberationType abberationType = GetAbberationType();
+
+            UnityEngine.Debug.Log("Creating Abberation: " + abberationType);
+            if(abberationType == AbberationType.ABBERANT_FREQ)
+            {
+                StartCoroutine(CreateFreqAbberation());
+            }
+        }
+    }
+
+    private IEnumerator CreateFreqAbberation()
+    {
+        Tuple<int, string> originalFreq = AddAbberantFreqToRandomStation();
+        yield return new WaitForSeconds(3);
+        SetStationFreq(originalFreq.Item1, originalFreq.Item2);
     }
 }

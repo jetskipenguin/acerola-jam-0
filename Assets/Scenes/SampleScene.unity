@@ -275,17 +275,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1217580015 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1796018284642714416, guid: 695c845932351934cbf2d76b55537e13, type: 3}
-  m_PrefabInstance: {fileID: 1796018283991055875}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0de92258c8be0741843a62dd14a5ba7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1881267107 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1796018285331178912, guid: 695c845932351934cbf2d76b55537e13, type: 3}
@@ -487,10 +476,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Radio Display
       objectReference: {fileID: 0}
-    - target: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
-      propertyPath: pauseButton
-      value: 
-      objectReference: {fileID: 1217580015}
-    m_RemovedComponents:
-    - {fileID: 8940611102392120609, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 695c845932351934cbf2d76b55537e13, type: 3}
