@@ -146,10 +146,8 @@ public class AbberationManager : MonoBehaviour
 
     private IEnumerator CreateFreqAbberation()
     {
-        Debug.Log("Adding abberant frequency");
         Tuple<int, string> originalFreq = AddAbberantFreqToRandomStation();
         yield return new WaitForSeconds(3);
-        Debug.Log("Removing frequency abberation, setting to " + originalFreq.Item2);
         SetStationFreq(originalFreq.Item1, originalFreq.Item2);
     }
 }
