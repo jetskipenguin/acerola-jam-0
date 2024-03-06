@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,15 +14,25 @@ public class DrawWaveform : MonoBehaviour
     [SerializeField] private Image img;
     [SerializeField] private AudioSource audioSource;
 
+    private Dictionary<AudioClip, Sprite> cachedWaveforms = new Dictionary<AudioClip, Sprite>();
     private AudioClip clip;
+
     
     // AudioSource must be changed before calling this
     public void DisplayWaveform()
     {
         clip = audioSource.clip;
-        // TODO: cache this texture
+        if(cachedWaveforms.ContainsKey(clip))
+        {
+            img.overrideSprite = cachedWaveforms[clip];
+            return;
+        }
+
         Texture2D texture = PaintWaveformSpectrum(clip, sat, width, height, waveformColor);
-        img.overrideSprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        Sprite sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        
+        cachedWaveforms[clip] = sprite;
+        img.overrideSprite = sprite;
     }
 
 
