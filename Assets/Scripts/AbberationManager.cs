@@ -33,7 +33,7 @@ public class AbberationManager : MonoBehaviour
 
     public void Start()
     {
-        StartCoroutine(CreateAbberations());
+        StartCoroutine(CreateFreqAbberation());
     }
 
     public void InitializeManager()
@@ -96,9 +96,11 @@ public class AbberationManager : MonoBehaviour
         string abberantFreq = abberantFreqs[UnityEngine.Random.Range(0, abberantFreqs.Length)];
 
         int stationIndex = UnityEngine.Random.Range(0, radioStations.Length);
+        string originalFreq = radioStations[stationIndex].freq;
+        
         SetStationFreq(stationIndex, abberantFreq);
 
-        return Tuple.Create(stationIndex, radioStations[stationIndex].freq);
+        return Tuple.Create(stationIndex, originalFreq);
     }
 
 
@@ -125,25 +127,27 @@ public class AbberationManager : MonoBehaviour
     }
 
 
-    private IEnumerator CreateAbberations()
-    {
-        while (true) 
-        {
-            yield return new WaitForSeconds(5);
-            AbberationType abberationType = GetAbberationType();
+    // private IEnumerator CreateAbberations()
+    // {
+    //     while (true) 
+    //     {
+    //         yield return new WaitForSeconds(5);
+    //         AbberationType abberationType = GetAbberationType();
 
-            UnityEngine.Debug.Log("Creating Abberation: " + abberationType);
-            if(abberationType == AbberationType.ABBERANT_FREQ)
-            {
-                StartCoroutine(CreateFreqAbberation());
-            }
-        }
-    }
+    //         UnityEngine.Debug.Log("Creating Abberation: " + abberationType);
+    //         if(abberationType == AbberationType.ABBERANT_FREQ)
+    //         {
+    //             StartCoroutine(CreateFreqAbberation());
+    //         }
+    //     }
+    // }
 
     private IEnumerator CreateFreqAbberation()
     {
+        Debug.Log("Adding abberant frequency");
         Tuple<int, string> originalFreq = AddAbberantFreqToRandomStation();
         yield return new WaitForSeconds(3);
+        Debug.Log("Removing frequency abberation, setting to " + originalFreq.Item2);
         SetStationFreq(originalFreq.Item1, originalFreq.Item2);
     }
 }
