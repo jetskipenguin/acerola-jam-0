@@ -97,7 +97,7 @@ public class AbberationManager : MonoBehaviour
 
         int stationIndex = UnityEngine.Random.Range(0, radioStations.Length);
         string originalFreq = radioStations[stationIndex].freq;
-        
+
         SetStationFreq(stationIndex, abberantFreq);
 
         return Tuple.Create(stationIndex, originalFreq);
@@ -113,11 +113,13 @@ public class AbberationManager : MonoBehaviour
         AudioClip abberantSound = abberantSounds[UnityEngine.Random.Range(0, abberantSounds.Length)];
 
         int stationIndex = UnityEngine.Random.Range(0, radioStations.Length);
+
+        AudioClip originalAudio = radioStations[stationIndex].clip;
         Station randomStation = radioStations[stationIndex];
 
         randomStation.clip = abberantSound;
 
-        return Tuple.Create(currStationIndex, randomStation.clip);
+        return Tuple.Create(currStationIndex, originalAudio);
     }
 
     
