@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class AbberationManager : MonoBehaviour
@@ -9,6 +10,8 @@ public class AbberationManager : MonoBehaviour
     [SerializeField] private RadioManager radioManager;
     [SerializeField] private AudioClip[] abberantSounds;
     [SerializeField] private string[] abberantFreqs;
+    [SerializeField] private int lengthOfAbberation = 6;
+    [SerializeField] private GameObject stuckPixel;
 
     private Dictionary<AbberationType, bool> abberationExists = new Dictionary<AbberationType, bool>();
     private int correctReport;
@@ -19,8 +22,7 @@ public class AbberationManager : MonoBehaviour
     {
         NONE,
         ABBERANT_FREQ,
-        //ABBERANT_SOUND,
-        // STUCK_PIXEL,
+        STUCK_PIXEL,
         // STRANGE_WAVEFORM,
     }
 
@@ -33,7 +35,7 @@ public class AbberationManager : MonoBehaviour
         }
 
         // TODO: just for testing right now, remove later
-        StartCoroutine(CreateFreqAbberation());
+        StartCoroutine(CreateStuckPixelAbberation());
     }
 
 
@@ -72,9 +74,10 @@ public class AbberationManager : MonoBehaviour
         radioManager.SetStationFreq(stationIndex, abberantFreq);
 
         return Tuple.Create(stationIndex, originalFreq);
-    }    
+    }
 
 
+    // Will handle randomly selecting an abberation and instantiating it
     private void CreateAbberation()
     {
         AbberationType abberationType = GetAbberationType();
@@ -92,8 +95,36 @@ public class AbberationManager : MonoBehaviour
         Debug.Log("Creating FREQ abberation");
         abberationExists[AbberationType.ABBERANT_FREQ] = true;
         Tuple<int, string> originalFreq = AddAbberantFreqToRandomStation();
-        yield return new WaitForSeconds(10);
+
+        float timer = 0;
+        while (timer < lengthOfAbberation && abberationExists[AbberationType.ABBERANT_FREQ])
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        Debug.Log("Removing FREQ abberation");
         radioManager.SetStationFreq(originalFreq.Item1, originalFreq.Item2);
+        abberationExists[AbberationType.ABBERANT_FREQ] = false;
+    }
+
+
+    private IEnumerator CreateStuckPixelAbberation()
+    {
+        Debug.Log("Creating STUCK PIXEL abberation");
+        abberationExists[AbberationType.STUCK_PIXEL] = true;
+        stuckPixel.SetActive(true);
+
+        float timer = 0;
+        while (timer < lengthOfAbberation && abberationExists[AbberationType.STUCK_PIXEL])
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        Debug.Log("Removing STUCK PIXEL abberation");
+        stuckPixel.SetActive(false);
+        abberationExists[AbberationType.STUCK_PIXEL] = false;
     }
 
 
@@ -103,6 +134,7 @@ public class AbberationManager : MonoBehaviour
         // I only have to do this because unity is stupid and wont let me put an enum in the inspector 
         AbberationType type = (AbberationType)Enum.Parse(typeof(AbberationType), abberationType);
         Debug.Log("Reporting Abberation: " + type);
+
         if(abberationExists[type])
         {
             Debug.Log("Correct Report");
