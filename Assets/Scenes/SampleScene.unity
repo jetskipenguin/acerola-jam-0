@@ -280,6 +280,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1796018285331178912, guid: 695c845932351934cbf2d76b55537e13, type: 3}
   m_PrefabInstance: {fileID: 1796018283991055875}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1881267110 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+  m_PrefabInstance: {fileID: 1796018283991055875}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 831f13d0104245c4db42bce8e21d7ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2050346119
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,6 +399,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2050346123}
     m_Modifications:
+    - target: {fileID: 1881267111, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: radioManager
+      value: 
+      objectReference: {fileID: 1881267110}
     - target: {fileID: 1796018285331178912, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -475,6 +490,26 @@ PrefabInstance:
     - target: {fileID: 1796018285331178913, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: m_Name
       value: Radio Display
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: radioStations.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: radioStations.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b8a1a352c8919d54fa7bbed58c939b1d, type: 3}
+    - target: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: radioStations.Array.data[0].freq
+      value: 103.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: radioStations.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2b66ac60e5784d542a9ca679ddc68eff, type: 3}
+    - target: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: radioStations.Array.data[1].freq
+      value: 92.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 695c845932351934cbf2d76b55537e13, type: 3}
