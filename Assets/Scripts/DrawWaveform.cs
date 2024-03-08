@@ -49,6 +49,15 @@ public class DrawWaveform : MonoBehaviour
         img.overrideSprite = sprite;
     }
 
+    public void DisplayStrangeShapeWaveform()
+    {
+        clip = audioSource.clip;
+        Texture2D texture = PaintWaveformSpectrum(clip, sat, width, height, waveformColor);
+        Sprite sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        
+        img.overrideSprite = sprite;
+    }
+
 
     // eventually move this away from the GUI into some other class
     public Texture2D PaintWaveformSpectrum(AudioClip audio, float saturation, int width, int height, Color col) 

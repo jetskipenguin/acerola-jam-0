@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,7 @@ public class AbberationManager : MonoBehaviour
         ABBERANT_FREQ,
         STUCK_PIXEL,
         STRANGE_WAVEFORM_COLOR,
+        STRANGE_WAVEFORM_SHAPE
     }
 
     public void Start()
@@ -35,7 +37,9 @@ public class AbberationManager : MonoBehaviour
         }
 
         // TODO: just for testing right now, remove later
-        StartCoroutine(CreateStrangeWaveformColorAbberation());
+
+        // NEED TO REDRAW FREQ IF REPORTED CORRECTLY
+        StartCoroutine(CreateFreqAbberation());
     }
 
 
@@ -60,23 +64,6 @@ public class AbberationManager : MonoBehaviour
     }
 
 
-    /* 
-    picks a random station and changes the freq to an abberant freq.
-    returns the original freq and index so it can be changed back.
-    */
-    private Tuple<int, string> AddAbberantFreqToRandomStation()
-    {
-        string abberantFreq = abberantFreqs[UnityEngine.Random.Range(0, abberantFreqs.Length)];
-
-        int stationIndex = UnityEngine.Random.Range(0, radioManager.GetNumRadioStations());
-        string originalFreq = radioManager.GetStationFreq(stationIndex);
-
-        radioManager.SetStationFreq(stationIndex, abberantFreq);
-
-        return Tuple.Create(stationIndex, originalFreq);
-    }
-
-
     // Will handle randomly selecting an abberation and instantiating it
     private void CreateAbberation()
     {
@@ -93,56 +80,82 @@ public class AbberationManager : MonoBehaviour
     private IEnumerator CreateFreqAbberation()
     {
         Debug.Log("Creating FREQ abberation");
-        abberationExists[AbberationType.ABBERANT_FREQ] = true;
-        Tuple<int, string> originalFreq = AddAbberantFreqToRandomStation();
+        
+        Station selectedStation = radioManager.GetRandomStation();
+        selectedStation.AddAbberation(AbberationType.ABBERANT_FREQ);
 
-        yield return StartCoroutine(WaitForAbberation(AbberationType.ABBERANT_FREQ));
+        string originalFreq = selectedStation.freq;
+        selectedStation.freq = abberantFreqs[UnityEngine.Random.Range(0, abberantFreqs.Length)];
+
+        yield return StartCoroutine(WaitForAbberation(AbberationType.ABBERANT_FREQ, selectedStation));
 
         Debug.Log("Removing FREQ abberation");
-        radioManager.SetStationFreq(originalFreq.Item1, originalFreq.Item2);
-        abberationExists[AbberationType.ABBERANT_FREQ] = false;
+
+        selectedStation.freq = originalFreq;
+        radioManager.SwitchStation(selectedStation);
+        selectedStation.RemoveAbberation(AbberationType.ABBERANT_FREQ);
     }
 
 
     private IEnumerator CreateStuckPixelAbberation()
     {
-        Debug.Log("Creating STUCK PIXEL abberation");
-        abberationExists[AbberationType.STUCK_PIXEL] = true;
-        
         // activate pixel and transform it somewhere random on the screen
+        Debug.Log("Creating STUCK PIXEL abberation");
         stuckPixel.SetActive(true);
         stuckPixel.transform.position = new Vector3(UnityEngine.Random.Range(0, Screen.width), UnityEngine.Random.Range(0, Screen.height), 0);
 
-        yield return StartCoroutine(WaitForAbberation(AbberationType.STUCK_PIXEL));
+        yield return StartCoroutine(WaitForAbberation(AbberationType.STUCK_PIXEL, stuckPixel));
 
         Debug.Log("Removing STUCK PIXEL abberation");
         stuckPixel.SetActive(false);
-        abberationExists[AbberationType.STUCK_PIXEL] = false;
     }
 
     
     private IEnumerator CreateStrangeWaveformColorAbberation()
     {
         Debug.Log("Creating STRANGE WAVEFORM COLOR abberation");
-
-        abberationExists[AbberationType.STRANGE_WAVEFORM_COLOR] = true;
         Station selectedStation = radioManager.GetRandomStation();
-        selectedStation.SetIsColorStrange(true);
+        selectedStation.AddAbberation(AbberationType.STRANGE_WAVEFORM_COLOR);
 
-        yield return StartCoroutine(WaitForAbberation(AbberationType.STRANGE_WAVEFORM_COLOR));
+        yield return StartCoroutine(WaitForAbberation(AbberationType.STRANGE_WAVEFORM_COLOR, selectedStation));
 
         Debug.Log("Removing STRANGE WAVEFORM COLOR abberation");
-
-        selectedStation.SetIsColorStrange(false);    
-        abberationExists[AbberationType.STRANGE_WAVEFORM_COLOR] = false;
+        selectedStation.RemoveAbberation(AbberationType.STRANGE_WAVEFORM_COLOR);   
         radioManager.SwitchStation(selectedStation);
     }
 
 
-    private IEnumerator WaitForAbberation(AbberationType type)
+    private IEnumerator CreateStrangeWaveformShapeAbberation()
+    {
+        Debug.Log("Creating STRANGE WAVEFORM SHAPE abberation");
+        Station selectedStation = radioManager.GetRandomStation();
+        selectedStation.AddAbberation(AbberationType.STRANGE_WAVEFORM_SHAPE);
+
+        yield return StartCoroutine(WaitForAbberation(AbberationType.STRANGE_WAVEFORM_SHAPE, selectedStation));
+
+        Debug.Log("Removing STRANGE WAVEFORM SHAPE abberation");
+        selectedStation.RemoveAbberation(AbberationType.STRANGE_WAVEFORM_SHAPE);
+        radioManager.SwitchStation(selectedStation);
+    }
+
+    // used for abberations that appear on all stations
+    private IEnumerator WaitForAbberation(AbberationType type, GameObject gameObject)
     {
         float timer = 0;
-        while (timer < lengthOfAbberation && abberationExists[type])
+        while (timer < lengthOfAbberation && gameObject.activeSelf)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return !abberationExists[type];
+    }
+
+    // used for abberations that appear on a specific station
+    private IEnumerator WaitForAbberation(AbberationType type, Station station)
+    {
+        float timer = 0;
+        while (timer < lengthOfAbberation && station.IsAbberationPresent(type))
         {
             timer += Time.deltaTime;
             yield return null;
@@ -157,9 +170,14 @@ public class AbberationManager : MonoBehaviour
     {
         // I only have to do this because unity is stupid and wont let me put an enum in the inspector 
         AbberationType type = (AbberationType)Enum.Parse(typeof(AbberationType), abberationType);
-        Debug.Log("Reporting Abberation: " + type);
+        Debug.Log("Reporting Abberation: " + type + " on station: " + radioManager.GetCurrentStation().freq);
 
-        if(abberationExists[type])
+        if(radioManager.GetCurrentStation().IsAbberationPresent(type))
+        {
+            Debug.Log("Correct Report");
+            correctReport++;
+        }
+        else if(type == AbberationType.STUCK_PIXEL && stuckPixel.activeSelf)
         {
             Debug.Log("Correct Report");
             correctReport++;
@@ -170,6 +188,6 @@ public class AbberationManager : MonoBehaviour
             incorrectReport++;
         }
         
-        abberationExists[type] = false;
+        radioManager.GetCurrentStation().RemoveAbberation(type);
     }
 }

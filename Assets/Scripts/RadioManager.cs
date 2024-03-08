@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -8,21 +10,31 @@ public class Station
 {
     public string freq;
     public AudioClip clip;
-    private bool isColorStrange = false;
+    private List<AbberationManager.AbberationType> abberations = new List<AbberationManager.AbberationType>();
 
     public static implicit operator Tuple<string, AudioClip>(Station station)
     {
         return new Tuple<string, AudioClip>(station.freq, station.clip);
     }
 
-    public bool IsColorStrange()
+    public bool IsAbberationPresent(AbberationManager.AbberationType abberationType)
     {
-        return isColorStrange;
+        return abberations.Contains(abberationType);
     }
 
-    public void SetIsColorStrange(bool isStrange)
+    public void AddAbberation(AbberationManager.AbberationType abberationType)
     {
-        isColorStrange = isStrange;
+        if(abberationType == AbberationManager.AbberationType.NONE)
+        {
+            return;
+        }
+
+        abberations.Add(abberationType);
+    }
+
+    public void RemoveAbberation(AbberationManager.AbberationType abberationType)
+    {
+        abberations.Remove(abberationType);
     }
 }
 
@@ -92,11 +104,6 @@ public class RadioManager : MonoBehaviour
         radioStations[index].freq = freq;
     }
 
-    public string GetStationFreq(int index)
-    {
-        return radioStations[index].freq;
-    }
-
     public int GetNumRadioStations()
     {
         return radioStations.Length;
@@ -107,6 +114,11 @@ public class RadioManager : MonoBehaviour
         return radioStations[UnityEngine.Random.Range(0, radioStations.Length)];
     }
 
+    public Station GetCurrentStation()
+    {
+        return radioStations[currStationIndex];
+    }
+
 
     public void SwitchStation(Station station)
     {
@@ -115,9 +127,13 @@ public class RadioManager : MonoBehaviour
         audioSource.clip = station.clip;
         frequencyDisplayController.DisplayFrequency(station.freq);
 
-        if(station.IsColorStrange())
+        if(station.IsAbberationPresent(AbberationManager.AbberationType.STRANGE_WAVEFORM_COLOR))
         {
             drawWaveform.DisplayStrangeColorWaveform();
+        }
+        else if(station.IsAbberationPresent(AbberationManager.AbberationType.STRANGE_WAVEFORM_SHAPE))
+        {
+            drawWaveform.DisplayStrangeShapeWaveform();
         }
         else
         {
