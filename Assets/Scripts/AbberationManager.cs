@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class AbberationManager : MonoBehaviour
@@ -39,7 +37,7 @@ public class AbberationManager : MonoBehaviour
         // TODO: just for testing right now, remove later
 
         // NEED TO REDRAW FREQ IF REPORTED CORRECTLY
-        StartCoroutine(CreateFreqAbberation());
+        StartCoroutine(CreateStuckPixelAbberation());
     }
 
 
@@ -180,6 +178,7 @@ public class AbberationManager : MonoBehaviour
         else if(type == AbberationType.STUCK_PIXEL && stuckPixel.activeSelf)
         {
             Debug.Log("Correct Report");
+            stuckPixel.SetActive(false);
             correctReport++;
         }
         else

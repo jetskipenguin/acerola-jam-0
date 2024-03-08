@@ -119,7 +119,7 @@ public class RadioManager : MonoBehaviour
         return radioStations[currStationIndex];
     }
 
-
+    
     public void SwitchStation(Station station)
     {
         bool isOriginalStationPlaying = audioSource.isPlaying;
