@@ -8,7 +8,7 @@ public class DrawWaveform : MonoBehaviour
     public int width = 500;
     public int height = 100;
     public Color waveformColor = Color.green;
-    //public Color bgColor = Color.green;
+
     public float sat = .5f;
  
     [SerializeField] private Image img;
@@ -32,6 +32,18 @@ public class DrawWaveform : MonoBehaviour
         Sprite sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         
         cachedWaveforms[clip] = sprite;
+        img.overrideSprite = sprite;
+    }
+
+    public void DisplayStrangeColorWaveform()
+    {
+        // select random color
+        Color color = new Color(Random.value, Random.value, Random.value, 1.0f);
+
+        clip = audioSource.clip;
+        Texture2D texture = PaintWaveformSpectrum(clip, sat, width, height, color);
+        Sprite sprite = Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        
         img.overrideSprite = sprite;
     }
 

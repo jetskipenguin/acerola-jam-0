@@ -8,10 +8,21 @@ public class Station
 {
     public string freq;
     public AudioClip clip;
+    private bool isColorStrange = false;
 
     public static implicit operator Tuple<string, AudioClip>(Station station)
     {
         return new Tuple<string, AudioClip>(station.freq, station.clip);
+    }
+
+    public bool IsColorStrange()
+    {
+        return isColorStrange;
+    }
+
+    public void SetIsColorStrange(bool isStrange)
+    {
+        isColorStrange = isStrange;
     }
 }
 
@@ -91,19 +102,27 @@ public class RadioManager : MonoBehaviour
         return radioStations.Length;
     }
 
-    public Tuple<string, AudioClip> GetRandomStation()
+    public Station GetRandomStation()
     {
-        return radioStations[currStationIndex];
+        return radioStations[UnityEngine.Random.Range(0, radioStations.Length)];
     }
 
 
-    private void SwitchStation(Tuple<string, AudioClip> station)
+    private void SwitchStation(Station station)
     {
         bool isOriginalStationPlaying = audioSource.isPlaying;
 
-        audioSource.clip = station.Item2;
-        frequencyDisplayController.DisplayFrequency(station.Item1);
-        drawWaveform.DisplayWaveform();
+        audioSource.clip = station.clip;
+        frequencyDisplayController.DisplayFrequency(station.freq);
+
+        if(station.IsColorStrange())
+        {
+            drawWaveform.DisplayStrangeColorWaveform();
+        }
+        else
+        {
+            drawWaveform.DisplayWaveform();
+        }
 
         if (isOriginalStationPlaying)
         {

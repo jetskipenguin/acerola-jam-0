@@ -23,7 +23,7 @@ public class AbberationManager : MonoBehaviour
         NONE,
         ABBERANT_FREQ,
         STUCK_PIXEL,
-        // STRANGE_WAVEFORM,
+        STRANGE_WAVEFORM_COLOR,
     }
 
     public void Start()
@@ -35,7 +35,7 @@ public class AbberationManager : MonoBehaviour
         }
 
         // TODO: just for testing right now, remove later
-        StartCoroutine(CreateStuckPixelAbberation());
+        StartCoroutine(CreateStrangeWaveformColorAbberation());
     }
 
 
@@ -113,7 +113,10 @@ public class AbberationManager : MonoBehaviour
     {
         Debug.Log("Creating STUCK PIXEL abberation");
         abberationExists[AbberationType.STUCK_PIXEL] = true;
+        
+        // activate pixel and transform it somewhere random on the screen
         stuckPixel.SetActive(true);
+        stuckPixel.transform.position = new Vector3(UnityEngine.Random.Range(0, Screen.width), UnityEngine.Random.Range(0, Screen.height), 0);
 
         float timer = 0;
         while (timer < lengthOfAbberation && abberationExists[AbberationType.STUCK_PIXEL])
@@ -125,6 +128,28 @@ public class AbberationManager : MonoBehaviour
         Debug.Log("Removing STUCK PIXEL abberation");
         stuckPixel.SetActive(false);
         abberationExists[AbberationType.STUCK_PIXEL] = false;
+    }
+
+    
+    private IEnumerator CreateStrangeWaveformColorAbberation()
+    {
+        Debug.Log("Creating STRANGE WAVEFORM COLOR abberation");
+        abberationExists[AbberationType.STRANGE_WAVEFORM_COLOR] = true;
+        
+        Station selectedStation = radioManager.GetRandomStation();
+        selectedStation.SetIsColorStrange(true);
+
+        float timer = 0;
+        while (timer < lengthOfAbberation && abberationExists[AbberationType.STRANGE_WAVEFORM_COLOR])
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        Debug.Log("Removing STRANGE WAVEFORM COLOR abberation");
+        selectedStation.SetIsColorStrange(false);
+        
+        abberationExists[AbberationType.STRANGE_WAVEFORM_COLOR] = false;
     }
 
 
