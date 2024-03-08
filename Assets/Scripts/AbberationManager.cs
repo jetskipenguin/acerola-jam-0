@@ -96,12 +96,7 @@ public class AbberationManager : MonoBehaviour
         abberationExists[AbberationType.ABBERANT_FREQ] = true;
         Tuple<int, string> originalFreq = AddAbberantFreqToRandomStation();
 
-        float timer = 0;
-        while (timer < lengthOfAbberation && abberationExists[AbberationType.ABBERANT_FREQ])
-        {
-            timer += Time.deltaTime;
-            yield return null;
-        }
+        yield return StartCoroutine(WaitForAbberation(AbberationType.ABBERANT_FREQ));
 
         Debug.Log("Removing FREQ abberation");
         radioManager.SetStationFreq(originalFreq.Item1, originalFreq.Item2);
@@ -118,12 +113,7 @@ public class AbberationManager : MonoBehaviour
         stuckPixel.SetActive(true);
         stuckPixel.transform.position = new Vector3(UnityEngine.Random.Range(0, Screen.width), UnityEngine.Random.Range(0, Screen.height), 0);
 
-        float timer = 0;
-        while (timer < lengthOfAbberation && abberationExists[AbberationType.STUCK_PIXEL])
-        {
-            timer += Time.deltaTime;
-            yield return null;
-        }
+        yield return StartCoroutine(WaitForAbberation(AbberationType.STUCK_PIXEL));
 
         Debug.Log("Removing STUCK PIXEL abberation");
         stuckPixel.SetActive(false);
@@ -134,22 +124,31 @@ public class AbberationManager : MonoBehaviour
     private IEnumerator CreateStrangeWaveformColorAbberation()
     {
         Debug.Log("Creating STRANGE WAVEFORM COLOR abberation");
+
         abberationExists[AbberationType.STRANGE_WAVEFORM_COLOR] = true;
-        
         Station selectedStation = radioManager.GetRandomStation();
         selectedStation.SetIsColorStrange(true);
 
+        yield return StartCoroutine(WaitForAbberation(AbberationType.STRANGE_WAVEFORM_COLOR));
+
+        Debug.Log("Removing STRANGE WAVEFORM COLOR abberation");
+
+        selectedStation.SetIsColorStrange(false);    
+        abberationExists[AbberationType.STRANGE_WAVEFORM_COLOR] = false;
+        radioManager.SwitchStation(selectedStation);
+    }
+
+
+    private IEnumerator WaitForAbberation(AbberationType type)
+    {
         float timer = 0;
-        while (timer < lengthOfAbberation && abberationExists[AbberationType.STRANGE_WAVEFORM_COLOR])
+        while (timer < lengthOfAbberation && abberationExists[type])
         {
             timer += Time.deltaTime;
             yield return null;
         }
 
-        Debug.Log("Removing STRANGE WAVEFORM COLOR abberation");
-        selectedStation.SetIsColorStrange(false);
-        
-        abberationExists[AbberationType.STRANGE_WAVEFORM_COLOR] = false;
+        yield return !abberationExists[type];
     }
 
 

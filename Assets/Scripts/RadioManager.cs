@@ -108,7 +108,7 @@ public class RadioManager : MonoBehaviour
     }
 
 
-    private void SwitchStation(Station station)
+    public void SwitchStation(Station station)
     {
         bool isOriginalStationPlaying = audioSource.isPlaying;
 

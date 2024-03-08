@@ -35,6 +35,8 @@ public class DrawWaveform : MonoBehaviour
         img.overrideSprite = sprite;
     }
 
+
+    // TODO: this functionality could be merged into the above function by adding color as a parameter
     public void DisplayStrangeColorWaveform()
     {
         // select random color
