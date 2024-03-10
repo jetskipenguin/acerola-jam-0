@@ -49,10 +49,11 @@ public class AbberationManager : MonoBehaviour
         // print incorrect and correct reports when b is pressed
         if (Input.GetKeyDown(KeyCode.B))
         {
-            Debug.Log("Correct Reports: " + correctReport);
-            Debug.Log("Incorrect Reports: " + incorrectReport);
-            Debug.Log("Length Between Abberations: " + lengthBetweenAbberations);
-            Debug.Log("Percent abberations found: " + (correctReport / numAbberationsCreated) * 100);
+            Debug.Log("Correct Reports: " + correctReport + " " +
+                    "Incorrect Reports: " + incorrectReport + " " +
+                    "Length Between Abberations: " + lengthBetweenAbberations + " " +
+                    "Percent abberations found: " + (correctReport / numAbberationsCreated) * 100
+                    );
         }
     }
 
