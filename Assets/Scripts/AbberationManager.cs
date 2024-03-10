@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 public class AbberationManager : MonoBehaviour
@@ -9,12 +11,15 @@ public class AbberationManager : MonoBehaviour
     [SerializeField] private RadioManager radioManager;
     [SerializeField] private AudioClip[] abberantSounds;
     [SerializeField] private string[] abberantFreqs;
-    [SerializeField] private int lengthOfAbberation = 1000;
+    [SerializeField] private int lengthOfAbberation = 10;
     [SerializeField] private GameObject stuckPixel;
+
+    private int lengthBetweenAbberations = 10;
 
     private Dictionary<AbberationType, bool> abberationExists = new Dictionary<AbberationType, bool>();
     private int correctReport;
     private int incorrectReport;
+    private int numAbberationsCreated = 0;
     
 
     public enum AbberationType
@@ -36,7 +41,19 @@ public class AbberationManager : MonoBehaviour
 
         // TODO: just for testing right now, remove later
 
-        StartCoroutine(CreateStrangeWaveformShapeAbberation());
+        StartCoroutine(CreateNewAbberations());
+    }
+
+    public void Update()
+    {
+        // print incorrect and correct reports when b is pressed
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            Debug.Log("Correct Reports: " + correctReport);
+            Debug.Log("Incorrect Reports: " + incorrectReport);
+            Debug.Log("Length Between Abberations: " + lengthBetweenAbberations);
+            Debug.Log("Percent abberations found: " + (correctReport / numAbberationsCreated) * 100);
+        }
     }
 
 
@@ -62,14 +79,46 @@ public class AbberationManager : MonoBehaviour
 
 
     // Will handle randomly selecting an abberation and instantiating it
-    private void CreateAbberation()
+    private IEnumerator CreateNewAbberations()
     {
-        AbberationType abberationType = GetAbberationType();
-
-        UnityEngine.Debug.Log("Creating Abberation: " + abberationType);
-        if(abberationType == AbberationType.ABBERANT_FREQ)
+        while(true)
         {
-            StartCoroutine(CreateFreqAbberation());
+            // create abberations faster if player is doing well
+            if(correctReport > 5)
+            {
+                lengthBetweenAbberations = 5;
+            }
+            else if(correctReport > 10)
+            {
+                lengthBetweenAbberations = 3;
+            }
+
+            AbberationType abberationType = GetAbberationType();
+
+            UnityEngine.Debug.Log("Creating Abberation: " + abberationType);
+            if(abberationType == AbberationType.ABBERANT_FREQ)
+            {
+                StartCoroutine(CreateFreqAbberation());
+            }
+            else if(abberationType == AbberationType.STUCK_PIXEL)
+            {
+                StartCoroutine(CreateStuckPixelAbberation());
+            }
+            else if(abberationType == AbberationType.STRANGE_WAVEFORM_COLOR)
+            {
+                StartCoroutine(CreateStrangeWaveformColorAbberation());
+            }
+            else if(abberationType == AbberationType.STRANGE_WAVEFORM_SHAPE)
+            {
+                StartCoroutine(CreateStrangeWaveformShapeAbberation());
+            }
+            else if(abberationType == AbberationType.NONE)
+            {
+                yield return null;
+            }
+
+            numAbberationsCreated++;
+            yield return new WaitForSeconds(lengthBetweenAbberations);
         }
     }
 
@@ -141,8 +190,8 @@ public class AbberationManager : MonoBehaviour
         float timer = 0;
         while (timer < lengthOfAbberation && gameObject.activeSelf)
         {
-            timer += Time.deltaTime;
-            yield return null;
+            yield return new WaitForSeconds(1);
+            timer += 1;
         }
 
         yield return !abberationExists[type];
@@ -154,8 +203,8 @@ public class AbberationManager : MonoBehaviour
         float timer = 0;
         while (timer < lengthOfAbberation && station.IsAbberationPresent(type))
         {
-            timer += Time.deltaTime;
-            yield return null;
+            yield return new WaitForSeconds(1);
+            timer += 1;
         }
 
         yield return !abberationExists[type];
