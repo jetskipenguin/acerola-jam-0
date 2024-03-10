@@ -9,7 +9,7 @@ public class AbberationManager : MonoBehaviour
     [SerializeField] private RadioManager radioManager;
     [SerializeField] private AudioClip[] abberantSounds;
     [SerializeField] private string[] abberantFreqs;
-    [SerializeField] private int lengthOfAbberation = 6;
+    [SerializeField] private int lengthOfAbberation = 1000;
     [SerializeField] private GameObject stuckPixel;
 
     private Dictionary<AbberationType, bool> abberationExists = new Dictionary<AbberationType, bool>();
@@ -36,8 +36,7 @@ public class AbberationManager : MonoBehaviour
 
         // TODO: just for testing right now, remove later
 
-        // NEED TO REDRAW FREQ IF REPORTED CORRECTLY
-        StartCoroutine(CreateStuckPixelAbberation());
+        StartCoroutine(CreateStrangeWaveformShapeAbberation());
     }
 
 
@@ -125,9 +124,9 @@ public class AbberationManager : MonoBehaviour
 
     private IEnumerator CreateStrangeWaveformShapeAbberation()
     {
-        Debug.Log("Creating STRANGE WAVEFORM SHAPE abberation");
         Station selectedStation = radioManager.GetRandomStation();
         selectedStation.AddAbberation(AbberationType.STRANGE_WAVEFORM_SHAPE);
+        Debug.Log("Added STRANGE WAVEFORM SHAPE abberation on station: " + selectedStation.freq);
 
         yield return StartCoroutine(WaitForAbberation(AbberationType.STRANGE_WAVEFORM_SHAPE, selectedStation));
 
@@ -174,19 +173,19 @@ public class AbberationManager : MonoBehaviour
         {
             Debug.Log("Correct Report");
             correctReport++;
+            radioManager.GetCurrentStation().RemoveAbberation(type);
         }
         else if(type == AbberationType.STUCK_PIXEL && stuckPixel.activeSelf)
         {
             Debug.Log("Correct Report");
             stuckPixel.SetActive(false);
             correctReport++;
+            radioManager.GetCurrentStation().RemoveAbberation(type);
         }
         else
         {
             Debug.Log("Incorrect Report");
             incorrectReport++;
         }
-        
-        radioManager.GetCurrentStation().RemoveAbberation(type);
     }
 }
