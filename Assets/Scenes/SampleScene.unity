@@ -280,17 +280,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1796018285331178912, guid: 695c845932351934cbf2d76b55537e13, type: 3}
   m_PrefabInstance: {fileID: 1796018283991055875}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1881267111 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1881267111, guid: 695c845932351934cbf2d76b55537e13, type: 3}
-  m_PrefabInstance: {fileID: 1796018283991055875}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a4e20a69556a6848bf6574fe9518a9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2050346119
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,22 +475,6 @@ PrefabInstance:
     - target: {fileID: 1796018285331178913, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: m_Name
       value: Radio Display
-      objectReference: {fileID: 0}
-    - target: {fileID: 5561764206383680287, guid: 695c845932351934cbf2d76b55537e13, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1881267111}
-    - target: {fileID: 5561764206383680287, guid: 695c845932351934cbf2d76b55537e13, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ReportAbberation
-      objectReference: {fileID: 0}
-    - target: {fileID: 5561764206383680287, guid: 695c845932351934cbf2d76b55537e13, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: STRANGE_WAVEFORM_SHAPE
-      objectReference: {fileID: 0}
-    - target: {fileID: 7079075836523045679, guid: 695c845932351934cbf2d76b55537e13, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 695c845932351934cbf2d76b55537e13, type: 3}
