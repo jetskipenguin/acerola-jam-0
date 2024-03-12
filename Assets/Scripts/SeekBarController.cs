@@ -18,7 +18,6 @@ public class SeekBarController : MonoBehaviour
     {
         screenWidth = Screen.width;
         transformWidth = (int) Math.Floor(transform.GetComponent<RectTransform>().rect.width);
-        clipLength = audioSource.clip.length;
         
         // find num of transforms that would fill up the screen horizontally
         numTransforms = screenWidth / transformWidth;
@@ -28,7 +27,10 @@ public class SeekBarController : MonoBehaviour
     {
         // move seek bar across the screen
         clipTime = audioSource.time;
+        clipLength = audioSource.clip.length;
+        
         int currTransformNum = (int) Math.Floor(numTransforms * (clipTime / clipLength));
+        Debug.Log("At currTransformNum: " + currTransformNum + " | clipTime: " + clipTime + " | clipLength: " + clipLength);
         transform.position = new Vector3(currTransformNum * transformWidth, transform.position.y, transform.position.z);
     }
 }

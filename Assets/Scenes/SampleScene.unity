@@ -496,6 +496,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Radio Display
       objectReference: {fileID: 0}
+    - target: {fileID: 1796018285387728206, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: radioStations.Array.size
       value: 6
