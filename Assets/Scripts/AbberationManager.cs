@@ -10,11 +10,12 @@ public class AbberationManager : MonoBehaviour
 {
     [SerializeField] private RadioManager radioManager;
     [SerializeField] private TextWriter textWriter;
+    [SerializeField] private TMPro.TextMeshProUGUI missedAbberationsText;
     [SerializeField] private string[] abberantFreqs;
     [SerializeField] private int lengthOfAbberation = 10;
     [SerializeField] private GameObject stuckPixel;
 
-    private int lengthBetweenAbberations = 10;
+    private int lengthBetweenAbberations = 5;
 
     private Dictionary<AbberationType, bool> abberationExists = new Dictionary<AbberationType, bool>();
     private int correctReport;
@@ -52,7 +53,7 @@ public class AbberationManager : MonoBehaviour
             Debug.Log("Correct Reports: " + correctReport + " |" +
                     "Incorrect Reports: " + incorrectReport + " |" +
                     "Length Between Abberations: " + lengthBetweenAbberations + " |" +
-                    "Percent abberations found: " + (correctReport / numAbberationsCreated) * 100
+                    "Percent abberations found: " + (float)((correctReport / numAbberationsCreated) * 100)
                     );
         }
     }
@@ -85,13 +86,14 @@ public class AbberationManager : MonoBehaviour
         while(true)
         {
             // create abberations faster if player is doing well
-            if(correctReport > 5)
-            {
-                lengthBetweenAbberations = 5;
-            }
-            else if(correctReport > 10)
+            if(numAbberationsCreated > 30)
             {
                 lengthBetweenAbberations = 3;
+            }
+            else if(numAbberationsCreated > 50)
+            {
+                lengthBetweenAbberations = 1;
+                lengthOfAbberation = 30;
             }
 
             AbberationType abberationType = GetAbberationType();
@@ -262,5 +264,8 @@ public class AbberationManager : MonoBehaviour
             // write to game UI
             textWriter.WriteText("Incorrect Report..");
         }
+
+        // update the missed abberations text
+        missedAbberationsText.text = "Missed Abberations: " + (numAbberationsCreated - correctReport);
     }
 }
