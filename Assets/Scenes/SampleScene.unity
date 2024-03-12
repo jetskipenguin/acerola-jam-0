@@ -404,9 +404,45 @@ PrefabInstance:
       propertyPath: abberantFreqs.Array.data[3]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 155472908991931826, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_Transition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 155472908991931826, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.6039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 155472908991931826, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.4117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 155472908991931826, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.28627452
+      objectReference: {fileID: 0}
     - target: {fileID: 1796018284464836614, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: m_Name
       value: Abberant Frequency
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796018284642714419, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796018284642714419, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.6039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796018284642714419, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.4117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796018284642714419, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.28627452
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796018284642714419, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.a
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1796018285331178912, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: m_Pivot.x
@@ -563,6 +599,18 @@ PrefabInstance:
     - target: {fileID: 4488990651980584659, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744335514239629519, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.6039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744335514239629519, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.4117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744335514239629519, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.28627452
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 695c845932351934cbf2d76b55537e13, type: 3}
