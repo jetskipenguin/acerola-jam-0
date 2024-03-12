@@ -544,5 +544,25 @@ PrefabInstance:
       propertyPath: radioStations.Array.data[6].freq
       value: 77.3
       objectReference: {fileID: 0}
+    - target: {fileID: 4488990651980584656, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 9.5466
+      objectReference: {fileID: 0}
+    - target: {fileID: 4488990651980584656, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 9.0792
+      objectReference: {fileID: 0}
+    - target: {fileID: 4488990651980584656, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -72.3133
+      objectReference: {fileID: 0}
+    - target: {fileID: 4488990651980584656, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 8.980193
+      objectReference: {fileID: 0}
+    - target: {fileID: 4488990651980584659, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 695c845932351934cbf2d76b55537e13, type: 3}

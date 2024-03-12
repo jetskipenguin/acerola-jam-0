@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8849943708773437888, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
+      propertyPath: m_Transition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8849943708773437888, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8849943708773437889, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -42,6 +50,18 @@ PrefabInstance:
     - target: {fileID: 8849943708773437889, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
       propertyPath: m_SizeDelta.y
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8849943708773437889, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8849943708773437889, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8849943708773437889, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8849943708773437889, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -95,6 +115,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: StuckPixel
       objectReference: {fileID: 0}
+    - target: {fileID: 8849943708773437902, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8849943708773437903, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8849943708773437903, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0ae2b74b1edd14bb18dd7b65ae916a54, type: 3}
     - target: {fileID: 8849943708773437903, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -110,6 +142,18 @@ PrefabInstance:
     - target: {fileID: 8849943708773437903, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
       propertyPath: m_Color.r
       value: 0.9245283
+      objectReference: {fileID: 0}
+    - target: {fileID: 8849943708773437903, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8849943708773437903, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
+      propertyPath: m_FillCenter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8849943708773437903, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77ec97cf84624934bb283426cfa1c6c3, type: 3}
