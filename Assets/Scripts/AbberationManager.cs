@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class AbberationManager : MonoBehaviour
 {
     [SerializeField] private RadioManager radioManager;
-    [SerializeField] private AudioClip[] abberantSounds;
+    [SerializeField] private TextWriter textWriter;
     [SerializeField] private string[] abberantFreqs;
     [SerializeField] private int lengthOfAbberation = 10;
     [SerializeField] private GameObject stuckPixel;
@@ -240,6 +240,9 @@ public class AbberationManager : MonoBehaviour
             Debug.Log("Correct Report");
             correctReport++;
             radioManager.GetCurrentStation().RemoveAbberation(type);
+
+            // write to game UI
+            textWriter.WriteText("Correct Report..");
         }
         else if(type == AbberationType.STUCK_PIXEL && stuckPixel.activeSelf)
         {
@@ -247,11 +250,17 @@ public class AbberationManager : MonoBehaviour
             stuckPixel.SetActive(false);
             correctReport++;
             radioManager.GetCurrentStation().RemoveAbberation(type);
+
+            // write to game UI
+            textWriter.WriteText("Correct Report..");
         }
         else
         {
             Debug.Log("Incorrect Report");
             incorrectReport++;
+
+            // write to game UI
+            textWriter.WriteText("Incorrect Report..");
         }
     }
 }
