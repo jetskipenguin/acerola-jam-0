@@ -71,7 +71,7 @@ public class DrawWaveform : MonoBehaviour
         }
 
         // Make peak wider
-        for(int i = 0; i < 1000; i++)
+        for(int i = 0; i < 1500; i++)
         {
             samples[randomIndex + i] += max;
         }
