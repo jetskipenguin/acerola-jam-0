@@ -49,9 +49,9 @@ public class AbberationManager : MonoBehaviour
         // print incorrect and correct reports when b is pressed
         if (Input.GetKeyDown(KeyCode.B))
         {
-            Debug.Log("Correct Reports: " + correctReport + " " +
-                    "Incorrect Reports: " + incorrectReport + " " +
-                    "Length Between Abberations: " + lengthBetweenAbberations + " " +
+            Debug.Log("Correct Reports: " + correctReport + " |" +
+                    "Incorrect Reports: " + incorrectReport + " |" +
+                    "Length Between Abberations: " + lengthBetweenAbberations + " |" +
                     "Percent abberations found: " + (correctReport / numAbberationsCreated) * 100
                     );
         }
@@ -139,7 +139,13 @@ public class AbberationManager : MonoBehaviour
         Debug.Log("Removing FREQ abberation");
 
         selectedStation.freq = originalFreq;
-        radioManager.SwitchStation(selectedStation);
+
+        // refresh the station if it is the current station
+        if(radioManager.GetCurrentStation() == selectedStation)
+        {
+            radioManager.SwitchStation(selectedStation);
+        }
+
         selectedStation.RemoveAbberation(AbberationType.ABBERANT_FREQ);
     }
 
@@ -167,8 +173,13 @@ public class AbberationManager : MonoBehaviour
         yield return StartCoroutine(WaitForAbberation(AbberationType.STRANGE_WAVEFORM_COLOR, selectedStation));
 
         Debug.Log("Removing STRANGE WAVEFORM COLOR abberation");
-        selectedStation.RemoveAbberation(AbberationType.STRANGE_WAVEFORM_COLOR);   
-        radioManager.SwitchStation(selectedStation);
+        selectedStation.RemoveAbberation(AbberationType.STRANGE_WAVEFORM_COLOR);
+
+        // refresh the station if it is the current station   
+        if(radioManager.GetCurrentStation() == selectedStation)
+        {
+            radioManager.SwitchStation(selectedStation);
+        }
     }
 
 
@@ -182,7 +193,12 @@ public class AbberationManager : MonoBehaviour
 
         Debug.Log("Removing STRANGE WAVEFORM SHAPE abberation");
         selectedStation.RemoveAbberation(AbberationType.STRANGE_WAVEFORM_SHAPE);
-        radioManager.SwitchStation(selectedStation);
+
+        // refresh the station if it is the current station
+        if(radioManager.GetCurrentStation() == selectedStation)
+        {
+            radioManager.SwitchStation(selectedStation);
+        }
     }
 
     // used for abberations that appear on all stations

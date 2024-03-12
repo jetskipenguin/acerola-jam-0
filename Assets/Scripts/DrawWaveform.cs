@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class DrawWaveform : MonoBehaviour
 {
-    public int width = 500;
+    public int width = 1000;
     public int height = 100;
     public Color waveformColor = Color.green;
 

@@ -404,6 +404,10 @@ PrefabInstance:
       propertyPath: abberantFreqs.Array.data[3]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1796018284464836614, guid: 695c845932351934cbf2d76b55537e13, type: 3}
+      propertyPath: m_Name
+      value: Abberant Frequency
+      objectReference: {fileID: 0}
     - target: {fileID: 1796018285331178912, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -499,7 +503,7 @@ PrefabInstance:
     - target: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: radioStations.Array.data[2].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 2b66ac60e5784d542a9ca679ddc68eff, type: 3}
+      objectReference: {fileID: 8300000, guid: a5184ec05e2fff84eb95a882e997b6b3, type: 3}
     - target: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: radioStations.Array.data[2].freq
       value: 87.3
@@ -507,7 +511,7 @@ PrefabInstance:
     - target: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: radioStations.Array.data[3].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 2b66ac60e5784d542a9ca679ddc68eff, type: 3}
+      objectReference: {fileID: 8300000, guid: 813b3ac3d0a58d84bae8cf86b1e9185f, type: 3}
     - target: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: radioStations.Array.data[3].freq
       value: 89.3
@@ -515,7 +519,7 @@ PrefabInstance:
     - target: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: radioStations.Array.data[4].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 2b66ac60e5784d542a9ca679ddc68eff, type: 3}
+      objectReference: {fileID: 8300000, guid: a47867ea8be5bdf4ca45a64d8381c8ab, type: 3}
     - target: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: radioStations.Array.data[4].freq
       value: 101.2
@@ -523,7 +527,7 @@ PrefabInstance:
     - target: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: radioStations.Array.data[5].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 2b66ac60e5784d542a9ca679ddc68eff, type: 3}
+      objectReference: {fileID: 8300000, guid: 687be5cf866d7a648b649d73ac30877f, type: 3}
     - target: {fileID: 4364774079894223671, guid: 695c845932351934cbf2d76b55537e13, type: 3}
       propertyPath: radioStations.Array.data[5].freq
       value: 98.4
